@@ -1,0 +1,42 @@
+<main class="container">
+  <header>
+    <div>
+      <h1>Student Management</h1>
+      <p>Students loaded from SQL Server through .NET API</p>
+    </div>
+
+    <button (click)="loadStudents()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Refresh Students' }}
+    </button>
+  </header>
+
+  <p *ngIf="loading" class="status">Loading students...</p>
+
+  <p *ngIf="error" class="error">
+    {{ error }}
+  </p>
+
+  <table *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.course }}</td>
+      </tr>
+
+      <tr *ngIf="students.length === 0">
+        <td colspan="4">No students found.</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
